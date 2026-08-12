@@ -5,7 +5,7 @@ export const DDG_SEARCH_URL = "https://html.duckduckgo.com/html/";
 export const BROWSER_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
-/** Domain mapping for common technologies used by `search_docs`. */
+/** Domain mapping for common technologies used by `find_docs_urls`. */
 export const DOMAIN_MAP: Record<string, string> = {
   nextjs: "nextjs.org",
   next: "nextjs.org",

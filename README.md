@@ -8,7 +8,7 @@ It fetches pages through [`https://r.jina.ai/`](https://jina.ai/reader/) under t
 
 - Built-in presets for React 19, Next.js, TypeScript, Tailwind CSS, Zustand, TanStack Query v5, Node.js, Prisma, and Express.
 - Fetch any arbitrary documentation URL as clean markdown.
-- Search live docs by technology (and optional version) via [DuckDuckGo HTML](https://html.duckduckgo.com/html/), then return clean markdown for the top results through Jina Reader.
+- Find documentation website URLs by technology (and optional version) via [DuckDuckGo HTML](https://html.duckduckgo.com/html/), then return clean markdown for the top results through Jina Reader.
 - Detect dependency versions from the current project's `package.json`.
 - Automatic truncation of very large pages (> 25,000 characters) to keep responses LLM-friendly.
 - Zero configuration and no API keys.
@@ -32,22 +32,22 @@ Fetches clean markdown documentation. Provide **exactly one** of:
 
 Reads `package.json` from the current working directory (`process.cwd()`) and returns a JSON summary of `dependencies` and `devDependencies` with their declared versions. Takes no arguments.
 
-### `search_docs`
+### `find_docs_urls`
 
-Searches documentation for a technology and returns clean markdown for up to the **top 2** results from [DuckDuckGo HTML](https://html.duckduckgo.com/html/) (fetched in parallel via Jina Reader).
+Finds documentation website URLs for a technology via [DuckDuckGo HTML](https://html.duckduckgo.com/html/), then returns clean markdown for up to the **top 2** results (fetched in parallel via Jina Reader).
 
 | Argument       | Type     | Required | Description                                              |
 | -------------- | -------- | -------- | -------------------------------------------------------- |
-| `query`        | `string` | yes      | Search terms, e.g. `useActionState` or `app router`.     |
+| `query`        | `string` | yes      | Terms used to find docs URLs, e.g. `useActionState`.     |
 | `technology`   | `string` | yes      | Technology name, e.g. `react`, `nextjs`, `tailwind`.     |
 | `version`      | `string` | no       | Optional version scope, e.g. `19` or `15`.               |
 
-**Search behavior:**
+**URL discovery behavior:**
 
 1. **Primary query** (when the technology has a known docs domain):  
    `site:<domain> <technology> <version?> <query>`  
    Example: `site:react.dev react 19 useActionState`
-2. **Fallback** if the primary search returns no links:  
+2. **Fallback** if the primary query returns no links:  
    `<technology> <version?> docs <query>`
 3. Extract up to two result URLs, fetch markdown for both with `Promise.all`, and return them as:
 
@@ -63,7 +63,7 @@ Searches documentation for a technology and returns clean markdown for up to the
 
 Mapped domains include `react` → `react.dev`, `nextjs`/`next` → `nextjs.org`, `tailwind`/`tailwindcss` → `tailwindcss.com`, and `zustand` → `zustand-demo.pmnd.rs`.
 
-> Note: [DuckDuckGo HTML](https://html.duckduckgo.com/html/) may rate-limit or challenge automated searches after many requests. If searches fail intermittently, wait and retry, or use `get_fullstack_docs` with a preset/`customUrl`.
+> Note: [DuckDuckGo HTML](https://html.duckduckgo.com/html/) may rate-limit or challenge automated searches after many requests. If URL discovery fails intermittently, wait and retry, or use `get_fullstack_docs` with a preset/`customUrl`.
 
 ### Supported presets
 
@@ -102,7 +102,7 @@ Add the server to your Cursor MCP config at `~/.cursor/mcp.json` (global) or `.c
 }
 ```
 
-Then reload Cursor. The tools `list_supported_presets`, `get_fullstack_docs`, `detect_project_versions`, and `search_docs` will be available to the agent.
+Then reload Cursor. The tools `list_supported_presets`, `get_fullstack_docs`, `detect_project_versions`, and `find_docs_urls` will be available to the agent.
 
 ### Claude Desktop
 
@@ -187,7 +187,7 @@ Only the compiled `build/` directory is published (see the `files` field in `pac
 ## How it works
 
 - `get_fullstack_docs` resolves a target URL (from a preset or `customUrl`) and requests `https://r.jina.ai/<target-url>` with `X-Return-Format: markdown`.
-- `search_docs` finds candidate URLs via [DuckDuckGo HTML](https://html.duckduckgo.com/html/) search, then fetches each through the same Jina Reader path.
+- `find_docs_urls` discovers candidate documentation URLs via [DuckDuckGo HTML](https://html.duckduckgo.com/html/), then fetches each through the same Jina Reader path.
 - Large pages are truncated at 25,000 characters to keep responses LLM-friendly.
 
 ## Project structure
@@ -203,7 +203,7 @@ src/
     listSupportedPresets.ts
     getFullstackDocs.ts
     detectProjectVersions.ts
-    searchDocs.ts
+    findDocsUrls.ts
 ```
 
 ## License

@@ -8,18 +8,18 @@ import {
   fetchSearchHtml,
 } from "../search.js";
 
-export function registerSearchDocs(server: McpServer): void {
+export function registerFindDocsUrls(server: McpServer): void {
   server.registerTool(
-    "search_docs",
+    "find_docs_urls",
     {
-      title: "Search documentation and fetch clean markdown",
+      title: "Find documentation URLs and fetch clean markdown",
       description:
-        "Search documentation for a technology via DuckDuckGo (site-scoped when mapped, with an automatic relaxed fallback), then return clean markdown for up to the top 2 results through Jina Reader. Optionally scope by version.",
+        "Find documentation website URLs for a technology via DuckDuckGo (site-scoped when mapped, with an automatic relaxed fallback), then return clean markdown for up to the top 2 results through Jina Reader. Optionally scope by version.",
       inputSchema: {
         query: z
           .string()
           .min(1)
-          .describe("The documentation search query, e.g. 'useEffect'."),
+          .describe("Terms to find docs URLs for, e.g. 'useEffect'."),
         technology: z
           .string()
           .min(1)
@@ -29,7 +29,7 @@ export function registerSearchDocs(server: McpServer): void {
           .min(1)
           .optional()
           .describe(
-            "Optional version to scope docs search, e.g. '15' or '19'."
+            "Optional version to scope docs URL search, e.g. '15' or '19'."
           ),
       },
     },
@@ -59,7 +59,7 @@ export function registerSearchDocs(server: McpServer): void {
           content: [
             {
               type: "text",
-              text: `Documentation search request failed: ${message}`,
+              text: `Documentation URL search request failed: ${message}`,
             },
           ],
         };
@@ -71,7 +71,7 @@ export function registerSearchDocs(server: McpServer): void {
           content: [
             {
               type: "text",
-              text: `No documentation results found. Tried: ${triedQueries
+              text: `No documentation URLs found. Tried: ${triedQueries
                 .map((q) => `"${q}"`)
                 .join(" then ")}. Try a different query, technology, or version.`,
             },
@@ -100,7 +100,7 @@ export function registerSearchDocs(server: McpServer): void {
           content: [
             {
               type: "text",
-              text: `Found docs result(s) at ${urls.join(", ")}, but failed to fetch clean markdown: ${message}`,
+              text: `Found docs URL(s) ${urls.join(", ")}, but failed to fetch clean markdown: ${message}`,
             },
           ],
         };
