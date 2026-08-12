@@ -1,7 +1,7 @@
 {
   "name": "mcp-server-dev-docs",
-  "version": "0.1.0",
-  "description": "MCP server that serves clean, LLM-ready markdown docs for popular fullstack technologies (and any custom URL) via r.jina.ai. No API key required.",
+  "version": "1.0.0",
+  "description": "MCP server providing live, clean fullstack tech documentation for React, Next.js, TypeScript, Tailwind, Zustand, and custom URLs.",
   "license": "MIT",
   "author": "Orel-Toledano",
   "repository": {
@@ -13,9 +13,9 @@
   },
   "homepage": "https://github.com/Orel-Toledano/mcp-server-dev-docs#readme",
   "type": "module",
-  "main": "./build/index.js",
+  "main": "build/index.js",
   "bin": {
-    "mcp-server-dev-docs": "./build/index.js"
+    "mcp-server-dev-docs": "build/index.js"
   },
   "files": [
     "build"
