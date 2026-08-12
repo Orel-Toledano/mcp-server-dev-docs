@@ -8,7 +8,7 @@ It fetches pages through [`https://r.jina.ai/`](https://jina.ai/reader/) under t
 
 - Built-in presets for React 19, Next.js, TypeScript, Tailwind CSS, Zustand, TanStack Query v5, Node.js, Prisma, and Express.
 - Fetch any arbitrary documentation URL as clean markdown.
-- Search live docs by technology (and optional version) via DuckDuckGo, then return clean markdown for the top results through Jina Reader.
+- Search live docs by technology (and optional version) via [DuckDuckGo HTML](https://html.duckduckgo.com/html/), then return clean markdown for the top results through Jina Reader.
 - Detect dependency versions from the current project's `package.json`.
 - Automatic truncation of very large pages (> 25,000 characters) to keep responses LLM-friendly.
 - Zero configuration and no API keys.
@@ -34,7 +34,7 @@ Reads `package.json` from the current working directory (`process.cwd()`) and re
 
 ### `search_docs`
 
-Searches documentation for a technology and returns clean markdown for up to the **top 2** DuckDuckGo results (fetched in parallel via Jina Reader).
+Searches documentation for a technology and returns clean markdown for up to the **top 2** results from [DuckDuckGo HTML](https://html.duckduckgo.com/html/) (fetched in parallel via Jina Reader).
 
 | Argument       | Type     | Required | Description                                              |
 | -------------- | -------- | -------- | -------------------------------------------------------- |
@@ -63,7 +63,7 @@ Searches documentation for a technology and returns clean markdown for up to the
 
 Mapped domains include `react` → `react.dev`, `nextjs`/`next` → `nextjs.org`, `tailwind`/`tailwindcss` → `tailwindcss.com`, and `zustand` → `zustand-demo.pmnd.rs`.
 
-> Note: DuckDuckGo may rate-limit or challenge automated HTML searches after many requests. If searches fail intermittently, wait and retry, or use `get_fullstack_docs` with a preset/`customUrl`.
+> Note: [DuckDuckGo HTML](https://html.duckduckgo.com/html/) may rate-limit or challenge automated searches after many requests. If searches fail intermittently, wait and retry, or use `get_fullstack_docs` with a preset/`customUrl`.
 
 ### Supported presets
 
@@ -187,7 +187,7 @@ Only the compiled `build/` directory is published (see the `files` field in `pac
 ## How it works
 
 - `get_fullstack_docs` resolves a target URL (from a preset or `customUrl`) and requests `https://r.jina.ai/<target-url>` with `X-Return-Format: markdown`.
-- `search_docs` finds candidate URLs via DuckDuckGo HTML search, then fetches each through the same Jina Reader path.
+- `search_docs` finds candidate URLs via [DuckDuckGo HTML](https://html.duckduckgo.com/html/) search, then fetches each through the same Jina Reader path.
 - Large pages are truncated at 25,000 characters to keep responses LLM-friendly.
 
 ## Project structure
