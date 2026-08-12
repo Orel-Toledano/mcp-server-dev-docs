@@ -1,0 +1,53 @@
+{
+  "name": "mcp-server-dev-docs",
+  "version": "0.1.0",
+  "description": "MCP server that serves clean, LLM-ready markdown docs for popular fullstack technologies (and any custom URL) via r.jina.ai. No API key required.",
+  "license": "MIT",
+  "author": "Orel-Toledano",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orel-Toledano/mcp-server-dev-docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Orel-Toledano/mcp-server-dev-docs/issues"
+  },
+  "homepage": "https://github.com/Orel-Toledano/mcp-server-dev-docs#readme",
+  "type": "module",
+  "main": "./build/index.js",
+  "bin": {
+    "mcp-server-dev-docs": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "documentation",
+    "docs",
+    "llm",
+    "cursor",
+    "claude",
+    "react",
+    "nextjs",
+    "typescript",
+    "tailwind",
+    "prisma"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x build/index.js",
+    "prepare": "yarn build",
+    "start": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
